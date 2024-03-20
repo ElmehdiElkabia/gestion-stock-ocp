@@ -61,20 +61,7 @@ class UserController extends Controller
         return redirect()->route('users.index')->withSuccess(__('message.msg_added',['name' => __('users.store')]));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $data = User::with('userProfile','roles')->findOrFail($id);
-
-        $profileImage = getSingleMedia($data, 'profile_image');
-
-        return view('users.profile', compact('data', 'profileImage'));
-    }
+ 
 
     /**
      * Show the form for editing the specified resource.

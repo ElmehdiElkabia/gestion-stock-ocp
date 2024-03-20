@@ -1,3 +1,6 @@
+
+@section('title', 'Tableau - Tout- OP')
+
 <x-app-layout :assets="$assets ?? []">
 <div class="row">
    <div class="col-sm-12">

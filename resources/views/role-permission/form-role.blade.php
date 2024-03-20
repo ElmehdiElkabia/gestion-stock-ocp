@@ -5,11 +5,11 @@
     </div>
     <label class="form-label">Status</label>
     <div class="form-check">
-        {{ Form::radio('status', '1',old('status'), ['class' => 'form-check-input', 'id' => 'roleassigned']); }}
+        {{ Form::radio('status', '1',old('status'), ['class' => 'form-check-input', 'id' => 'roleassigned']) }}
         <label class="form-check-label" for="roleassigned">yes</label>
     </div>
     <div class="mb-3 form-check">
-        {{ Form::radio('status', '0',old('status'), ['class' => 'form-check-input', 'id' => 'rolenotassigned']); }}
+        {{ Form::radio('status', '0',old('status'), ['class' => 'form-check-input', 'id' => 'rolenotassigned']) }}
         <label class="form-check-label" for="rolenotassigned">no</label>
     </div>
     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>

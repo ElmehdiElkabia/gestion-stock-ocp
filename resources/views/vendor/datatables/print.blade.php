@@ -34,4 +34,4 @@
             @endforeach
         </table>
     </body>
-</html>
+ 

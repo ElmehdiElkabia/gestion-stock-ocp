@@ -41,25 +41,25 @@
                         <label class="form-label">Status:</label>
                         <div class="grid" style="--bs-gap: 1rem">
                             <div class="form-check g-col-6">
-                                {{ Form::radio('status', 'active',old('status') || true, ['class' => 'form-check-input', 'id' => 'status-active']); }}
+                                {{ Form::radio('status', 'active',old('status') || true, ['class' => 'form-check-input', 'id' => 'status-active']) }}
                                 <label class="form-check-label" for="status-active">
                                     Active
                                 </label>
                             </div>
                             <div class="form-check g-col-6">
-                                {{ Form::radio('status', 'pending',old('status'), ['class' => 'form-check-input', 'id' => 'status-pending']); }}
+                                {{ Form::radio('status', 'pending',old('status'), ['class' => 'form-check-input', 'id' => 'status-pending'])}}
                                 <label class="form-check-label" for="status-pending">
                                     Pending
                                 </label>
                             </div>
                             <div class="form-check g-col-6">
-                                {{ Form::radio('status', 'banned',old('status'), ['class' => 'form-check-input', 'id' => 'status-banned']); }}
+                                {{ Form::radio('status', 'banned',old('status'), ['class' => 'form-check-input', 'id' => 'status-banned'])}}
                                 <label class="form-check-label" for="status-banned">
                                     Banned
                                 </label>
                             </div>
                             <div class="form-check g-col-6">
-                                {{ Form::radio('status', 'inactive',old('status'), ['class' => 'form-check-input', 'id' => 'status-inactive']); }}
+                                {{ Form::radio('status', 'inactive',old('status'), ['class' => 'form-check-input', 'id' => 'status-inactive'])}}
                                 <label class="form-check-label" for="status-inactive">
                                     Inactive
                                 </label>
