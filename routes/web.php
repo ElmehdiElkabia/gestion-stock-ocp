@@ -7,6 +7,7 @@ use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImobilisableController;
+use App\Http\Controllers\ImportController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Artisan;
 // Packages
@@ -115,4 +116,10 @@ Route::get('/history', [HistoryController::class, 'index'])->name('history.index
 
 
 // export
-Route::get('/export',  [ExportController::class, 'exportConsomables'])->name('consomables.export');
+Route::get('/export/consomables',  [ExportController::class, 'exportConsomables'])->name('consomables.export');
+Route::get('/export/imobilisables',  [ExportController::class, 'exportImobilisables'])->name('imobilisables.export');
+
+
+// import 
+Route::post('/import/consomables',  [ImportController::class, 'importConsomables'])->name('consomables.import');
+Route::post('/import/imobilisables',  [ImportController::class, 'importImobilisables'])->name('imobilisables.import');

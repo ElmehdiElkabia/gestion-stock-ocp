@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\ServiceProvider;
+
 return [
 
     /*
@@ -134,7 +137,7 @@ return [
     |
     */
 
-    'providers' => [
+    'providers'  => ServiceProvider::defaultProviders()->merge([
         Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
@@ -178,7 +181,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-    ],
+    ])->toArray(),
 
     /*
     |--------------------------------------------------------------------------
@@ -191,7 +194,7 @@ return [
     |
     */
 
-    'aliases' => [
+    'aliases' =>Facade::defaultAliases()->merge([
 
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
@@ -232,6 +235,6 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'AuthHelper' => App\Helpers\AuthHelper::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class
-    ],
+    ])->toArray(),
 
 ];

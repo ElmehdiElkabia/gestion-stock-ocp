@@ -9,8 +9,14 @@
                            <h4 class="card-title">imobilisable tout</h4>
                        </div>
                        <div class="card-action">
-                           <a href="{{ route('imobilisables.create') }}" class="btn btn-sm btn-primary" role="button">creer nouvelle</a>
-                       </div>
+                       <form action="{{ route('imobilisables.import') }}" method="POST" enctype="multipart/form-data" class="d-inline">
+                           @csrf
+                           <input type="file" name="file" class="file-input" accept=".xlsx,.xls">
+                           <button type="submit" class="btn btn-sm btn-primary">Importer</button>
+                       </form>
+                       <a href="{{ route('imobilisables.export') }}" class="btn btn-sm btn-primary" role="button">Exporter</a>
+                       <a href="{{ route('imobilisables.create') }}" class="btn btn-sm btn-primary" role="button">Créer nouvelle</a>
+                   </div>
                    </div>
                    <div class="card-body px-0">
                        <div class="table-responsive">
