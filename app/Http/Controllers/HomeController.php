@@ -34,7 +34,6 @@ class HomeController extends Controller
         )->groupBy(DB::raw('MONTH(created_at)'))
             ->get();
 
-        // Combine counts into a single array
         $counts_by_month = [];
         for ($month = 1; $month <= 12; $month++) {
             $consomable_count = $consomable_counts->where('month', $month)->first();
@@ -83,24 +82,7 @@ class HomeController extends Controller
 
 
 
-    /*
-     * Error Page Routs
-     */
-
-    public function error404(Request $request)
-    {
-        return view('errors.error404');
-    }
-
-    public function error500(Request $request)
-    {
-        return view('errors.error500');
-    }
-    public function maintenance(Request $request)
-    {
-        return view('errors.maintenance');
-    }
-
+  
     /*
      * uisheet Page Routs
      */

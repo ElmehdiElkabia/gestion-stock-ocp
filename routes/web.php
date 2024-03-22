@@ -3,6 +3,8 @@
 // Controllers
 
 use App\Http\Controllers\ConsomableController;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImobilisableController;
 use App\Http\Controllers\UserController;
@@ -81,10 +83,7 @@ Route::group(['prefix' => 'forms'], function() {
 });
 
 
-//Table Page Routs
-Route::group(['prefix' => 'table'], function() {
-    Route::get('datatable', [HomeController::class, 'datatable'])->name('table.datatable');
-});
+
 
 
 
@@ -109,3 +108,11 @@ Route::get('/imobilisable/{id}/edit', [ImobilisableController::class, 'edit'])->
 Route::put('/imobilisable/{id}', [ImobilisableController::class, 'update'])->name('imobilisables.update');
 Route::delete('/imobilisable/{id}', [ImobilisableController::class, 'destroy'])->name('imobilisables.destroy');
 Route::get('/imobilisable/{id}', [ImobilisableController::class, 'show'])->name('imobilisables.show');
+
+
+// history
+Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
+
+
+// export
+Route::get('/export',  [ExportController::class, 'exportConsomables'])->name('consomables.export');

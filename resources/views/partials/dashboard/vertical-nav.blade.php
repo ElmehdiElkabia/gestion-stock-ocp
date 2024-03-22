@@ -398,7 +398,7 @@
         <ul class="sub-nav collapse" id="sidebar-table" data-bs-parent="#sidebar">
           
             <li class="nav-item">
-                <a class="nav-link {{activeRoute(route('table.datatable'))}}" href="{{route('table.datatable')}}">
+                <a class="nav-link {{activeRoute(route('history.index'))}}" href="{{route('history.index')}}">
                 <i class="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                         <g>
@@ -406,8 +406,7 @@
                         </g>
                     </svg>
                 </i>
-                <i class="sidenav-mini-icon"> D </i>
-                <span class="item-name">Datatable</span>
+                <span class="item-name">history</span>
                 </a>
             </li>
         </ul>

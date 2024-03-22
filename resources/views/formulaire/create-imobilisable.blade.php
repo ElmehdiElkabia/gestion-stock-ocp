@@ -109,9 +109,8 @@
                                             placeholder="Enter Image">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label class="form-label" for="fichier">Fichier pdf:</label>
-                                        <input type="file" class="form-control" id="pdf_file_path"
-                                            name="pdf_file_path" placeholder="select Fichier pdf">
+                                        <label class="form-label" for="pdf_file_path">Fichier PDF:</label>
+                                        <input type="file" class="form-control" id="pdf_file_path" name="pdf_file_path" placeholder="Sélectionner un fichier PDF">
                                     </div>
                                 </div>
                             </div>

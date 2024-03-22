@@ -122,11 +122,10 @@
                                                 value="{{ $imobilisable->image }}" placeholder="Enter Emplacement">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label class="form-label" for="fichier">Fichier pdf:</label>
-                                            <input type="file" class="form-control" id="pdf_file_path"
-                                                name="pdf_file_path" value="{{ $imobilisable->pdf_file_path }}"
-                                                placeholder="Enter Fichier pdf">
+                                            <label class="form-label" for="pdf_file_path">Fichier PDF:</label>
+                                            <input type="file" class="form-control" id="pdf_file_path" name="pdf_file_path" placeholder="Sélectionner un fichier PDF" value="{{ $imobilisable->pdf_file_path }}">
                                         </div>
+                                       
                                 </div>
                                 <hr>
                                 <button type="submit" class="btn btn-primary">Modifier</button>
