@@ -1,5 +1,5 @@
 
-
+@section('title', ' Tableau tout Consomable')
 <x-app-layout :assets="$assets ?? []">
    <div>
        <div class="row">

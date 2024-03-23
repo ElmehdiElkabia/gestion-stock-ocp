@@ -1,3 +1,4 @@
+@section('title', 'Modifier une imobilisable')
 <x-app-layout :assets="$assets ?? []">
     <div>
         <div class="row">

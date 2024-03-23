@@ -1,3 +1,4 @@
+@section('title', ' Dashboard Analyse')
 <x-app-layout :assets="$assets ?? []">
    <div class="row">
       <div class="col-md-12 col-lg-12">
