@@ -8,6 +8,7 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImobilisableController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ControllerPDF;
 use Illuminate\Support\Facades\Artisan;
 // Packages
 use Illuminate\Support\Facades\Route;
@@ -90,6 +91,7 @@ Route::group(['prefix' => 'forms'], function() {
 
 
 // consomable
+Route::get('/table/consomables/securite', [ConsomableController::class, 'securite'])->name('consomables.securite');
 Route::get('/table/consomables', [ConsomableController::class, 'index'])->name('consomables.index');
 Route::get('/consomable/create', [ConsomableController::class, 'create'])->name('consomables.create');
 Route::post('/consomable/create', [ConsomableController::class, 'store'])->name('consomables.store');
@@ -99,9 +101,10 @@ Route::delete('/consomable/{id}', [ConsomableController::class, 'destroy'])->nam
 Route::get('/consomable/{id}', [ConsomableController::class, 'show'])->name('consomables.show');
 Route::get('/consomables/{id}/edit', [ConsomableController::class, 'edit'])->name('consomables.edit');
 
-
 // imobilisables
 Route::get('/table/imobilisables', [ImobilisableController::class, 'index'])->name('imobilisables.index');
+Route::get('/table/imobilisables/securite', [ImobilisableController::class, 'securite'])->name('imobilisables.securite');
+Route::get('/table/consomables/securite', [ConsomableController::class, 'securite'])->name('consomables.securite');
 Route::get('/imobilisable/create', [ImobilisableController::class, 'create'])->name('imobilisables.create');
 Route::post('/imobilisable/create', [ImobilisableController::class, 'store'])->name('imobilisables.store');
 Route::get('/imobilisable/{id}/edit', [ImobilisableController::class, 'edit'])->name('imobilisables.edit');
@@ -116,3 +119,8 @@ Route::get('/history', [HistoryController::class, 'index'])->name('history.index
 
 // export
 Route::get('/export',  [ExportController::class, 'exportConsomables'])->name('consomables.export');
+//pdf
+Route::get('/download-Consomable-pdf/{id}', [ControllerPDF::class,'downloadConsomablePdf'])->name('download-Consomable-pdf');
+Route::get('/download-imobilisable-pdf/{id}', [ControllerPDF::class,'downloadImobilisablePdf'])->name('download-Imobilisable-pdf');
+//excel
+Route::get('/export-consomables', 'App\Http\Controllers\ConsomableController@export')->name('export-consomables');

@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Exports\ConsomablesExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 
@@ -21,6 +23,11 @@ class ConsomableController extends Controller
     {
         $consomables = Consomable::all();
         return view('table.table-consomable', compact('consomables'));
+    }
+    public function securite()
+    {
+        $consomablessecurite = Consomable::all();
+        return view('table.page-suiteSecuriteC', compact('consomablessecurite'));
     }
 
     /**
@@ -72,6 +79,10 @@ class ConsomableController extends Controller
 
         return redirect()->route('consomables.index')->with('success', 'Consomable créé avec succès.');
     }
+        public function export()
+        {
+            return Excel::download(new ConsomablesExport, 'consomables.xlsx');
+        }
 
 
     /**
@@ -79,9 +90,12 @@ class ConsomableController extends Controller
      */
     public function show(string $id)
     {
-        $consomable = Consomable::findOrFail($id);
-        return view('consomables.index', compact('consomable'));
+        $affectations = Affictation::all();
+        $consomable = Consomable::find($id);
+        return view('table.page-showConsomable', compact('consomable', 'affectations'));
     }
+
+    
 
     /**
      * Show the form for editing the specified resource.

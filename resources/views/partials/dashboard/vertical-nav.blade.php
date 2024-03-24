@@ -46,20 +46,34 @@
             </i>
         </a>
         <ul class="sub-nav collapse" id="sidebar-table" data-bs-parent="#sidebar">  
-            <li class="nav-item">
-                <a class="nav-link {{activeRoute(route('consomables.index'))}}" href="{{route('consomables.index')}}">
-                    <i class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                            <g>
-                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                            </g>
-                        </svg>
-                    </i>
-                    <i class="sidenav-mini-icon">  </i>
-                    <span class="item-name">Tout</span>
-                </a>
-            </li>
-        </ul>
+    <li class="nav-item">
+        <a class="nav-link {{ activeRoute(route('consomables.index')) }}" href="{{ route('consomables.index') }}">
+            <i class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                    <g>
+                    <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                    </g>
+                </svg>
+            </i>
+            <i class="sidenav-mini-icon"></i>
+            <span class="item-name">Tout</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {{ activeRoute(route('consomables.securite')) }}" href="{{ route('consomables.securite') }}">
+            <i class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                    <g>
+                    <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                    </g>
+                </svg>
+            </i>
+            <i class="sidenav-mini-icon"></i>
+            <span class="item-name">Securite</span>
+        </a>
+    </li>
+
+</ul>
     </li>
     <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#sidebar-table" role="button" aria-expanded="false" aria-controls="sidebar-table">
@@ -91,14 +105,20 @@
                     <span class="item-name">Tout</span>
                 </a>
             </li>
+            <li class="nav-item">
+            <a class="nav-link {{ activeRoute(route('imobilisables.index')) }}" href="{{ route('imobilisables.securite') }}">
+                <i class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                        <g>
+                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                        </g>
+                    </svg>
+                </i>
+                <i class="sidenav-mini-icon"></i>
+                <span class="item-name">Securite</span>
+            </a>
+        </li>
         </ul>
-    </li>
-    <li><hr class="hr-horizontal"></li>
-    <li class="nav-item static-item">
-        <a class="nav-link static-item disabled" href="#" tabindex="-1">
-            <span class="default-icon">Pages</span>
-            <span class="mini-icon">-</span>
-        </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#sidebar-special-pages" role="button"  aria-expanded="false" aria-controls="sidebar-special-pages">

@@ -20,6 +20,11 @@ class ImobilisableController extends Controller
         $imobilisables = Imobilisable::all();
         return view('table.table-imobilisable', compact('imobilisables'));
     }
+    public function securite()
+    {
+        $imobilisablessecurite = Imobilisable::all();
+        return view('table.page-suiteSecuriteI', compact('imobilisablessecurite'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -65,8 +70,9 @@ class ImobilisableController extends Controller
      */
     public function show(string $id)
     {
-        $imobilisable =Imobilisable::findOrFail($id);
-        return view('imobilisables.show', compact('imobilisable'));
+        $affectations = Affictation::all();
+        $imobilisables = Imobilisable::find($id);
+        return view('table.page-showImobilisable', compact('imobilisables', 'affectations'));
     }
 
     /**
