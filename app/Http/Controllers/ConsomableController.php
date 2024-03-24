@@ -88,12 +88,29 @@ class ConsomableController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id, Request $request)
     {
-        $affectations = Affictation::all();
-        $consomable = Consomable::find($id);
-        return view('table.page-showConsomable', compact('consomable', 'affectations'));
+        $consomable = Consomable::findOrFail($id);
+        if ($request->has('newQuantity')) {
+            $request->validate([
+                'newQuantity' => 'nullable|numeric', 
+            ]);
+    
+            // Update the consomable's quantity if provided
+            if ($request->has('newQuantity')) {
+                $consomable->quantite += $request->input('newQuantity');
+            }
+            $consomable->save();
+    
+            // Redirect back or to another page as needed
+            return redirect()->route('consomables.index')->with('success', 'Updates applied successfully.');
+        }
+    
+        // If the form is not submitted, return the view with the consomable and affectations
+        return view('table.page-showConsomable', compact('consomable' ));
     }
+    
+    
 
     
 
@@ -106,6 +123,51 @@ class ConsomableController extends Controller
         $consomable = Consomable::find($id);
         return view('formulaire.edite-consomable', compact('consomable', 'affectations'));
     }
+
+    public function editN_bille(string $id, Request $request)
+    {
+        $affectations = Affictation::all();
+        $consomable = Consomable::findOrFail($id);
+    
+        // Check if the form is submitted and process the new data
+        if ($request->has('newQuantity') || $request->has('newNumerobille')) {
+            // Validate the request data
+            $request->validate([
+                'newQuantity' => 'nullable|numeric', // Adjust validation rules as needed
+                'newNumerobille' => 'nullable|string', // Adjust validation rules as needed
+            ]);
+    
+            // Update the consomable's quantity if provided
+            if ($request->has('newQuantity')) {
+                $consomable->quantite += $request->input('newQuantity');
+            }
+    
+            // Update the consomable's "Numero Bille" if provided
+            if ($request->has('newNumerobille')) {
+                // Concatenate the existing "numero_bille" with the new value with a separator
+                $newNumerobille = $request->input('newNumerobille');
+                $separator = ','; // You can change this to any separator you prefer
+                $consomable->numero_bille = $consomable->numero_bille . $separator . $newNumerobille;
+            } 
+            
+    
+            // Save the changes to the consomable
+            $consomable->save();
+    
+            // Redirect back or to another page as needed
+            return redirect()->route('consomables.index')->with('success', 'Updates applied successfully.');
+        }
+    
+        // If the form is not submitted, return the view with the consomable and affectations
+        return view('formulaire.edite-consomableS', compact('consomable'));
+    }
+    
+    
+    
+
+        
+
+
 
 
     /**

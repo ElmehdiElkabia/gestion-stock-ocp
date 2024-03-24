@@ -82,17 +82,18 @@
                                 </div>
                             </div>
                             <hr>
-                            <h5 class="mb-3">Actions</h5>
                             <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label class="form-label" for="uname">add a new Quantity : <span class="text-danger">*</span></label>
-                                    <input type="text">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <button class="btn btn-primary" for="pass">Add</button>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">{{$id !== null ? 'Update' : 'Add' }} User</button>
+                                <form action="{{ route('consomables.show', $consomable->id) }}" method="GET">
+                                    <!-- Your form fields here -->
+                                    <div class="form-group col-md-6">
+                                        <label class="form-label" for="newQuantity">sourte the  Quantity:</label>
+                                        <input type="text" class="form-control" id="newQuantity" name="newQuantity">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <br><button class="btn btn-primary" type="submit">sourte</button>
+                                    </div>
+                                </form>
+                            <div/>
                         </div>
                     </div>
                 </div>

@@ -68,10 +68,26 @@ class ImobilisableController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id, Request $request)
     {
         $affectations = Affictation::all();
-        $imobilisables = Imobilisable::find($id);
+        $imobilisables = Imobilisable::findOrFail($id);
+        if ($request->has('newQuantity')) {
+            $request->validate([
+                'newQuantity' => 'nullable|numeric', 
+            ]);
+    
+            // Update the consomable's quantity if provided
+            if ($request->has('newQuantity')) {
+                $imobilisables->quantite -= $request->input('newQuantity');
+            }
+            $imobilisables->save();
+    
+            // Redirect back or to another page as needed
+            return redirect()->route('imobilisables.index')->with('success', 'Updates applied successfully.');
+        }
+    
+        // If the form is not submitted, return the view with the consomable and affectations
         return view('table.page-showImobilisable', compact('imobilisables', 'affectations'));
     }
 
@@ -84,6 +100,43 @@ class ImobilisableController extends Controller
         $affectations=Affictation::all();
         return view('formulaire.edite-imobilisable', compact('imobilisable','affectations'));
     }
+    public function editN_bille(string $id, Request $request)
+    {
+        $affectations = Affictation::all();
+        $imobilisable = Imobilisable::findOrFail($id);
+    
+        // Check if the form is submitted and process the new data
+        if ($request->has('newQuantity') || $request->has('newNumerobille')) {
+            // Validate the request data
+            $request->validate([
+                'newQuantity' => 'nullable|numeric', // Adjust validation rules as needed
+                'newNumerobille' => 'nullable|string', // Adjust validation rules as needed
+            ]);
+    
+            // Update the Imobilisable's quantity if provided
+            if ($request->has('newQuantity')) {
+                $imobilisable->quantite += $request->input('newQuantity');
+            }
+    
+            // Update the Imobilisable's "Numero Bille" if provided
+            if ($request->has('newNumerobille')) {
+                // Concatenate the existing "numero_bille" with the new value with a separator
+                $newNumerobille = $request->input('newNumerobille');
+                $separator = ','; // You can change this to any separator you prefer
+                $imobilisable->numero_bille = $imobilisable->numero_bille . $separator . $newNumerobille;
+            } 
+    
+            // Save the changes to the Imobilisable
+            $imobilisable->save();
+    
+            // Redirect back or to another page as needed
+            return redirect()->route('imobilisables.index')->with('success', 'Updates applied successfully.');
+        }
+    
+        // If the form is not submitted, return the view with the Imobilisable
+        return view('formulaire.edite-imobilisableS', compact('imobilisable'));
+    }
+    
     /**
      * Update the specified resource in storage.
      */

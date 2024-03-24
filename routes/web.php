@@ -96,6 +96,8 @@ Route::get('/table/consomables', [ConsomableController::class, 'index'])->name('
 Route::get('/consomable/create', [ConsomableController::class, 'create'])->name('consomables.create');
 Route::post('/consomable/create', [ConsomableController::class, 'store'])->name('consomables.store');
 Route::get('/consomable/{id}/edit', [ConsomableController::class, 'edit'])->name('consomables.edit');
+Route::get('/consomable/{id}/edit/N_bille', [ConsomableController::class, 'editN_bille'])->name('consomables.editN_bille');
+Route::put('/consomable/{id}/edit/N_bille', [ConsomableController::class, 'editN_bille'])->name('consomables.editN_bille');
 Route::put('/consomable/{id}', [ConsomableController::class, 'update'])->name('consomables.update');
 Route::delete('/consomable/{id}', [ConsomableController::class, 'destroy'])->name('consomables.destroy');
 Route::get('/consomable/{id}', [ConsomableController::class, 'show'])->name('consomables.show');
@@ -108,6 +110,10 @@ Route::get('/table/consomables/securite', [ConsomableController::class, 'securit
 Route::get('/imobilisable/create', [ImobilisableController::class, 'create'])->name('imobilisables.create');
 Route::post('/imobilisable/create', [ImobilisableController::class, 'store'])->name('imobilisables.store');
 Route::get('/imobilisable/{id}/edit', [ImobilisableController::class, 'edit'])->name('imobilisables.edit');
+// Route definition
+Route::get('/imobilisable/{id}/edit/N_bille', [ImobilisableController::class, 'editN_bille'])->name('imobilisables.editN_bille');
+Route::put('/imobilisable/{id}/edit/N_bille', [ImobilisableController::class, 'editN_bille']);
+
 Route::put('/imobilisable/{id}', [ImobilisableController::class, 'update'])->name('imobilisables.update');
 Route::delete('/imobilisable/{id}', [ImobilisableController::class, 'destroy'])->name('imobilisables.destroy');
 Route::get('/imobilisable/{id}', [ImobilisableController::class, 'show'])->name('imobilisables.show');

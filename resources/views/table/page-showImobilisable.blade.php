@@ -97,18 +97,19 @@
                                 </div>
                             </div>
                             <hr>
-                            <h6 class="mb-3">Actions</h6>
+
                             <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label class="form-label" for="uname">The Quantity Sorti: <span class="text-danger">*</span></label>
-                                    <input type="text">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <button class="btn btn-primary" for="pass">Add</button>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">{{$id !== null ? 'Update' : 'Add' }} User</button>
-                        </div>
+                                <form action="{{ route('imobilisables.show', $imobilisables->id) }}" method="GET">
+                                    <!-- Your form fields here -->
+                                    <div class="form-group col-md-6">
+                                        <label class="form-label" for="newQuantity">sourte the  Quantity:</label>
+                                        <input type="text" class="form-control" id="newQuantity" name="newQuantity">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <br><button class="btn btn-primary" type="submit">sourte</button>
+                                    </div>
+                                </form>
+                            <div/>
                     </div>
                 </div>
             </div>
