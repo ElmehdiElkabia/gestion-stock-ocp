@@ -21,6 +21,11 @@ class ImobilisableController extends Controller
         return view('table.table-imobilisable', compact('imobilisables'));
     }
 
+    public function securite()
+    {
+        $Securite = Imobilisable::all();
+        return view('table.table-suivre-securite-imobilisable', compact('Securite'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -83,12 +88,14 @@ class ImobilisableController extends Controller
             $imobilisable->quantite -= $request->input('SortieQuantité');
             $imobilisable->save();
     
+            // Log the history for the sortie action
+            $this->logHistory(Auth::user()->id, 'sortie', 'imobilisable', $imobilisable);
+    
             return redirect()->route('imobilisables.index')->with('success', 'Quantity updated successfully.');
         }
     
         return view('pages.show-imobilsable', compact('imobilisable', 'affectations'));
     }
-    
 
     /**
      * Show the form for editing the specified resource.
@@ -108,40 +115,43 @@ class ImobilisableController extends Controller
      * update commande
      */
     public function commande(string $id, Request $request)
-    {
-        $affectations = Affictation::all();
-        $imobilisable = Imobilisable::findOrFail($id);
+{
+    $affectations = Affictation::all();
+    $imobilisable = Imobilisable::findOrFail($id);
 
-        // Check if the form is submitted and process the new data
-        if ($request->has('newQuantity') || $request->has('newNumerobille')) {
-            // Validate the request data
-            $request->validate([
-                'newQuantity' => 'nullable|numeric', // Adjust validation rules as needed
-                'newNumerobille' => 'nullable|string', // Adjust validation rules as needed
-            ]);
+    // Check if the form is submitted and process the new data
+    if ($request->has('newQuantity') || $request->has('newNumerobille')) {
+        // Validate the request data
+        $request->validate([
+            'newQuantity' => 'nullable|numeric', // Adjust validation rules as needed
+            'newNumerobille' => 'nullable|string', // Adjust validation rules as needed
+        ]);
 
-            // Update the consomable's quantity if provided
-            if ($request->has('newQuantity')) {
-                $imobilisable->quantite += $request->input('newQuantity');
-            }
-
-            // Update the consomable's "Numero Bille" if provided
-            if ($request->has('newNumerobille')) {
-                // Concatenate the existing "numero_bille" with the new value with a separator
-                $newNumerobille = $request->input('newNumerobille');
-                $separator = ','; // You can change this to any separator you prefer
-                $imobilisable->numero_bille = $imobilisable->numero_bille . $separator . $newNumerobille;
-            }
-
-
-            // Save the changes to the imobilisable
-            $imobilisable->save();
-
-            // Redirect back or to another page as needed
-            return redirect()->route('imobilisables.index')->with('success', 'Update imobilisable successfully.');
+        // Update the imobilisable's quantity if provided
+        if ($request->has('newQuantity')) {
+            $imobilisable->quantite += $request->input('newQuantity');
         }
-        return view('formulaire.edite-consomableS', compact('imobilisable'));
+
+        // Update the imobilisable's "Numero Bille" if provided
+        if ($request->has('newNumerobille')) {
+            // Concatenate the existing "numero_bille" with the new value with a separator
+            $newNumerobille = $request->input('newNumerobille');
+            $separator = '/'; // You can change this to any separator you prefer
+            $imobilisable->numero_bille = $imobilisable->numero_bille . $separator . $newNumerobille;
+        }
+
+        // Save the changes to the imobilisable
+        $imobilisable->save();
+
+        // Log the history for the commande action
+        $this->logHistory(Auth::user()->id, 'commande', 'imobilisable', $imobilisable);
+
+        // Redirect back or to another page as needed
+        return redirect()->route('imobilisables.index')->with('success', 'Update imobilisable successfully.');
     }
+
+    return view('formulaire.commande-imobilisable', compact('imobilisable','affectations'));
+}
     /**
      * Update the specified resource in storage.
      */

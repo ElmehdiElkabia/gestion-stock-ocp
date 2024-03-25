@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/table/consomables/securite', [ConsomableController::class, 'securite'])->name('consomables.securite');
     Route::get('/consomable/{id}/edit/commande', [ConsomableController::class, 'commande'])->name('consomables.commande');
     Route::put('/consomable/{id}/edit/commande', [ConsomableController::class, 'commande'])->name('consomables.commande');
-
+    Route::get('/table/consomables/commande', [ConsomableController::class, 'securite'])->name('consomables.securite');
 
 
 
@@ -68,7 +68,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/imobilisables/{id}/exit',  [ImobilisableController::class, 'exit'])->name('imobilisables.exit');
     Route::get('/imobilisable/{id}/edit/commande', [ImobilisableController::class, 'commande'])->name('imobilisables.commande');
     Route::put('/imobilisable/{id}/edit/commande', [ImobilisableController::class, 'commande'])->name('imobilisables.commande');
+    Route::get('/table/imobilisables/commande', [ImobilisableController::class, 'securite'])->name('imobilisables.securite');
 
+    
     //pdf
     Route::get('/download-pdf-consomble/{id}', [ControllerPDF::class, 'downloadConsomable'])->name('consomables.pdf');
     Route::get('/download-pdf-imobilisable/{id}', [ControllerPDF::class, 'downloadImobilisable'])->name('imobilisables.pdf');
@@ -79,7 +81,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     // export
     Route::get('/export/consomables',  [ExportController::class, 'exportConsomables'])->name('consomables.export');
+    Route::get('/export/consomable/{id}',  [ExportController::class, 'exportConsomableCommande'])->name('consomables.commande.export');
     Route::get('/export/imobilisables',  [ExportController::class, 'exportImobilisables'])->name('imobilisables.export');
+    Route::get('/export/imobilisable/{id}',  [ExportController::class, 'exportImobilisableCommande'])->name('imobilisables.commande.export');
 
 
     // import 

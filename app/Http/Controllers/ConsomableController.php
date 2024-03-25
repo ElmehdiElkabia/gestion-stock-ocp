@@ -23,6 +23,12 @@ class ConsomableController extends Controller
         return view('table.table-consomable', compact('consomables'));
     }
 
+
+    public function securite()
+    {
+        $Securite = Consomable::all();
+        return view('table.table-suivre-securite-consomable', compact('Securite'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -91,11 +97,15 @@ class ConsomableController extends Controller
              $consomable->quantite -= $request->input('SortieQuantité');
              $consomable->save();
      
+             // Log the history before the return statement
+             $this->logHistory(Auth::user()->id, 'sortie', 'consomables',$consomable);
+     
              return redirect()->route('consomables.index')->with('success', 'Quantity updated successfully.');
          }
      
          return view('pages.show-consomable', compact('consomable', 'affectations'));
      }
+     
 
     /**
      * Show the form for editing the specified resource.
@@ -111,7 +121,7 @@ class ConsomableController extends Controller
     {
         $affectations = Affictation::all();
         $consomable = Consomable::findOrFail($id);
-
+    
         // Check if the form is submitted and process the new data
         if ($request->has('newQuantity') || $request->has('newNumerobille')) {
             // Validate the request data
@@ -119,29 +129,33 @@ class ConsomableController extends Controller
                 'newQuantity' => 'nullable|numeric', // Adjust validation rules as needed
                 'newNumerobille' => 'nullable|string', // Adjust validation rules as needed
             ]);
-
+    
             // Update the consomable's quantity if provided
             if ($request->has('newQuantity')) {
                 $consomable->quantite += $request->input('newQuantity');
             }
-
+    
             // Update the consomable's "Numero Bille" if provided
             if ($request->has('newNumerobille')) {
                 // Concatenate the existing "numero_bille" with the new value with a separator
                 $newNumerobille = $request->input('newNumerobille');
-                $separator = ','; // You can change this to any separator you prefer
+                $separator = '/'; // You can change this to any separator you prefer
                 $consomable->numero_bille = $consomable->numero_bille . $separator . $newNumerobille;
             }
-
-
+    
             // Save the changes to the consomable
             $consomable->save();
-
+    
+            // Log the history for the commande action
+            $this->logHistory(Auth::user()->id, 'commande', 'consomables', $consomable);
+    
             // Redirect back or to another page as needed
             return redirect()->route('consomables.index')->with('success', 'Update Consomable successfully.');
         }
-        return view('formulaire.edite-consomableS', compact('consomable'));
+    
+        return view('formulaire.commande-consomable', compact('consomable','affectations'));
     }
+    
 
     /**
      * Update the specified resource in storage.

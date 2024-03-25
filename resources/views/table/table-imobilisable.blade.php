@@ -70,33 +70,6 @@
                                                             </svg>
                                                         </span>
                                                     </a>
-                                                    {{-- <a class="btn btn-sm btn-icon btn-info"
-                                                        href="{{ route('imobilisables.dowload', $imobilisable->id) }}"
-                                                        data-toggle="tooltip" data-placement="top" title="View">
-                                                        <span class="btn-inner">
-                                                            <svg width="32" viewBox="0 0 24 24" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M14.7369 2.76175H8.08489C6.00489 2.75375 4.30089 4.41075 4.25089 6.49075V17.2277C4.20589 19.3297 5.87389 21.0697 7.97489 21.1147C8.01189 21.1147 8.04889 21.1157 8.08489 21.1147H16.0729C18.1629 21.0407 19.8149 19.3187 19.8029 17.2277V8.03775L14.7369 2.76175Z"
-                                                                    stroke="currentColor" stroke-width="1.5"
-                                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                                </path>
-                                                                <path
-                                                                    d="M14.4751 2.75V5.659C14.4751 7.079 15.6241 8.23 17.0441 8.234H19.7981"
-                                                                    stroke="currentColor" stroke-width="1.5"
-                                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                                </path>
-                                                                <path d="M11.6421 15.9497V9.90869" stroke="currentColor"
-                                                                    stroke-width="1.5" stroke-linecap="round"
-                                                                    stroke-linejoin="round"></path>
-                                                                <path
-                                                                    d="M9.29639 13.5942L11.6414 15.9492L13.9864 13.5942"
-                                                                    stroke="currentColor" stroke-width="1.5"
-                                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                                </path>
-                                                            </svg>
-                                                        </span>
-                                                    </a> --}}
                                                     <a class="btn btn-sm btn-icon btn-warning"
                                                         href="{{ route('imobilisables.edit', $imobilisable->id) }}"
                                                         data-toggle="tooltip" data-placement="top" title="Edit">
@@ -120,29 +93,7 @@
                                                             </svg>
                                                         </span>
                                                     </a>
-                                                    <a class="btn btn-sm btn-icon btn-warning"
-                                                        href="{{ route('imobilisables.exit', $imobilisable->id) }}"
-                                                        data-toggle="tooltip" data-placement="top" title="Edit">
-                                                        <span class="btn-inner">
-                                                            <svg width="32" viewBox="0 0 24 24" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M15.016 7.38948V6.45648C15.016 4.42148 13.366 2.77148 11.331 2.77148H6.45597C4.42197 2.77148 2.77197 4.42148 2.77197 6.45648V17.5865C2.77197 19.6215 4.42197 21.2715 6.45597 21.2715H11.341C13.37 21.2715 15.016 19.6265 15.016 17.5975V16.6545"
-                                                                    stroke="currentColor" stroke-width="1.5"
-                                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                                </path>
-                                                                <path d="M21.8096 12.0215H9.76855"
-                                                                    stroke="currentColor" stroke-width="1.5"
-                                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                                </path>
-                                                                <path
-                                                                    d="M18.8813 9.1062L21.8093 12.0212L18.8813 14.9372"
-                                                                    stroke="currentColor" stroke-width="1.5"
-                                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                                </path>
-                                                            </svg>
-                                                        </span>
-                                                    </a>
+                                                  
                                                     <form
                                                         action="{{ route('imobilisables.destroy', $imobilisable->id) }}"
                                                         method="POST">
