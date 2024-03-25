@@ -3,6 +3,7 @@
 // Controllers
 
 use App\Http\Controllers\ConsomableController;
+use App\Http\Controllers\ControllerPDF;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
@@ -46,7 +47,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/consomable/{id}', [ConsomableController::class, 'update'])->name('consomables.update');
     Route::delete('/consomable/{id}', [ConsomableController::class, 'destroy'])->name('consomables.destroy');
     Route::get('/consomable/{id}', [ConsomableController::class, 'show'])->name('consomables.show');
+    Route::post('/consomable/{id}', [ConsomableController::class, 'show'])->name('consomables.show');
     Route::get('/consomables/{id}/edit', [ConsomableController::class, 'edit'])->name('consomables.edit');
+    Route::get('/table/consomables/securite', [ConsomableController::class, 'securite'])->name('consomables.securite');
+    Route::get('/consomable/{id}/edit/commande', [ConsomableController::class, 'commande'])->name('consomables.commande');
+    Route::put('/consomable/{id}/edit/commande', [ConsomableController::class, 'commande'])->name('consomables.commande');
+
+
 
 
     // imobilisables
@@ -57,8 +64,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/imobilisable/{id}', [ImobilisableController::class, 'update'])->name('imobilisables.update');
     Route::delete('/imobilisable/{id}', [ImobilisableController::class, 'destroy'])->name('imobilisables.destroy');
     Route::get('/imobilisable/{id}', [ImobilisableController::class, 'show'])->name('imobilisables.show');
+    Route::post('/imobilisable/{id}', [ImobilisableController::class, 'show'])->name('imobilisables.show');
+    Route::get('/imobilisables/{id}/exit',  [ImobilisableController::class, 'exit'])->name('imobilisables.exit');
+    Route::get('/imobilisable/{id}/edit/commande', [ImobilisableController::class, 'commande'])->name('imobilisables.commande');
+    Route::put('/imobilisable/{id}/edit/commande', [ImobilisableController::class, 'commande'])->name('imobilisables.commande');
 
-    // 
+    //pdf
+    Route::get('/download-pdf-consomble/{id}', [ControllerPDF::class, 'downloadConsomable'])->name('consomables.pdf');
+    Route::get('/download-pdf-imobilisable/{id}', [ControllerPDF::class, 'downloadImobilisable'])->name('imobilisables.pdf');
 
     // history
     Route::get('/history', [HistoryController::class, 'index'])->name('history.index');

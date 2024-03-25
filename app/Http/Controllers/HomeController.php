@@ -17,11 +17,13 @@ class HomeController extends Controller
         $assets = ['chart', 'animation'];
         $totalConsomable = Consomable::count();
         $totaImobilisable = Imobilisable::count();
-        $totalCommandeConsomable = Consomable::count('numero_commande');
-        // suivre_sucrete
-        $totalCommandeImobilisable = Imobilisable::count('numero_commande');
-        $totalCommandeSuivre_sucrete =  Consomable::whereColumn('suivre_sucrete', 'quantite')->count() +
-            Imobilisable::whereColumn('suivre_sucrete', 'quantite')->count();
+        $Suivre_sucreteConsomable = Consomable::whereColumn('quantite', 'suivre_sucrete')
+        ->orWhereColumn('quantite', '<', 'suivre_sucrete')
+        ->count();
+        $Suivre_sucreteImobilisable =Imobilisable::whereColumn('quantite', 'suivre_sucrete')
+        ->orWhereColumn('quantite', '<', 'suivre_sucrete')
+        ->count();
+        $totalSuivre_sucrete = $Suivre_sucreteConsomable+$Suivre_sucreteImobilisable;
         $consomable_counts = Consomable::select(
             DB::raw('MONTH(created_at) as month'),
             DB::raw('COUNT(*) as count')
@@ -44,7 +46,7 @@ class HomeController extends Controller
                 'imobilisable' => $imobilisable_count ? $imobilisable_count->count : 0,
             ];
         }
-        return view('dashboards.dashboard', compact('assets', 'totalConsomable', 'counts_by_month','totaImobilisable', 'totalCommandeConsomable', 'totalCommandeImobilisable', 'totalCommandeSuivre_sucrete'));
+        return view('dashboards.dashboard', compact('assets', 'totalConsomable', 'counts_by_month','totaImobilisable', 'Suivre_sucreteConsomable', 'Suivre_sucreteImobilisable', 'totalSuivre_sucrete'));
     }
 
     /*

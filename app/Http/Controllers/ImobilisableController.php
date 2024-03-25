@@ -25,9 +25,9 @@ class ImobilisableController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {   
+    {
         $affectations = Affictation::all();
-        return view('formulaire.create-imobilisable' ,compact('affectations'));
+        return view('formulaire.create-imobilisable', compact('affectations'));
     }
 
     /**
@@ -39,7 +39,7 @@ class ImobilisableController extends Controller
         $validator = Validator::make($request->all(), [
             'pdf_file_path' => 'nullable|file|max:5120', // 5MB maximum size (in kilobytes)
         ]);
-    
+
         // Check if the validation fails
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -47,7 +47,7 @@ class ImobilisableController extends Controller
         if ($request->input('affectation_SA') === 'other') {
             $data['affectation_SA'] = $request->input('other_affectation');
         }
-    
+
         // Handle PDF file upload
         if ($request->hasFile('pdf_file_path')) {
             $file = $request->file('pdf_file_path');
@@ -55,40 +55,105 @@ class ImobilisableController extends Controller
             $filePath = $file->storeAs('pdf_files', $fileName, 'public');
             $data['pdf_file_path'] = $filePath;
         }
-       $imobilisable=Imobilisable::create($data);
-       $this->logHistory(Auth::user()->id, 'created', 'imobilisable', $imobilisable);
+        // Handle image file upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $imagePath = $image->storeAs('images', $imageName, 'public');
+            $data['image'] = $imagePath;
+        }
+        $imobilisable = Imobilisable::create($data);
+        $this->logHistory(Auth::user()->id, 'created', 'imobilisable', $imobilisable);
         return redirect()->route('imobilisables.index')->with('success', 'imobilisable created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
-        $imobilisable =Imobilisable::findOrFail($id);
-        return view('imobilisables.show', compact('imobilisable'));
+        $imobilisable = Imobilisable::findOrFail($id);
+        $affectations = Affictation::all();
+    
+        if ($request->has('SortieQuantité')) {
+            $request->validate([
+                'SortieQuantité' => 'required|numeric|min:1',
+            ]);
+    
+            $imobilisable->quantite -= $request->input('SortieQuantité');
+            $imobilisable->save();
+    
+            return redirect()->route('imobilisables.index')->with('success', 'Quantity updated successfully.');
+        }
+    
+        return view('pages.show-imobilsable', compact('imobilisable', 'affectations'));
     }
+    
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit($id)
     {
-        $imobilisable =Imobilisable::findOrFail($id);
-        $affectations=Affictation::all();
-        return view('formulaire.edite-imobilisable', compact('imobilisable','affectations'));
+        $imobilisable = Imobilisable::findOrFail($id);
+        $affectations = Affictation::all();
+        return view('formulaire.edite-imobilisable', compact('imobilisable', 'affectations'));
+    }
+    public function exit($id)
+    {
+        $imobilisable = Imobilisable::findOrFail($id);
+        return view('exit-form', compact('imobilisable'));
+    }
+    /**
+     * update commande
+     */
+    public function commande(string $id, Request $request)
+    {
+        $affectations = Affictation::all();
+        $imobilisable = Imobilisable::findOrFail($id);
+
+        // Check if the form is submitted and process the new data
+        if ($request->has('newQuantity') || $request->has('newNumerobille')) {
+            // Validate the request data
+            $request->validate([
+                'newQuantity' => 'nullable|numeric', // Adjust validation rules as needed
+                'newNumerobille' => 'nullable|string', // Adjust validation rules as needed
+            ]);
+
+            // Update the consomable's quantity if provided
+            if ($request->has('newQuantity')) {
+                $imobilisable->quantite += $request->input('newQuantity');
+            }
+
+            // Update the consomable's "Numero Bille" if provided
+            if ($request->has('newNumerobille')) {
+                // Concatenate the existing "numero_bille" with the new value with a separator
+                $newNumerobille = $request->input('newNumerobille');
+                $separator = ','; // You can change this to any separator you prefer
+                $imobilisable->numero_bille = $imobilisable->numero_bille . $separator . $newNumerobille;
+            }
+
+
+            // Save the changes to the imobilisable
+            $imobilisable->save();
+
+            // Redirect back or to another page as needed
+            return redirect()->route('imobilisables.index')->with('success', 'Update imobilisable successfully.');
+        }
+        return view('formulaire.edite-consomableS', compact('imobilisable'));
     }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
-        $imobilisable =Imobilisable::findOrFail($id);
+        $imobilisable = Imobilisable::findOrFail($id);
         $data = $request->all();
+
         $validator = Validator::make($request->all(), [
             'pdf_file_path' => 'nullable|file|max:5120', // 5MB maximum size (in kilobytes)
         ]);
-    
+
         // Check if the validation fails
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -100,17 +165,33 @@ class ImobilisableController extends Controller
             $file = $request->file('pdf_file_path');
             $fileName = $file->getClientOriginalName();
             $filePath = $file->storeAs('pdf_files', $fileName, 'public');
-    
+
             // Delete the existing file if it exists
             if ($imobilisable->pdf_file_path) {
                 Storage::disk('public')->delete($imobilisable->pdf_file_path);
             }
-    
+
             $data['pdf_file_path'] = $filePath;
         }
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $imagePath = $image->storeAs('images', $imageName, 'public');
+
+            // Delete the existing image if it exists
+            if ($imobilisable->image) {
+                Storage::disk('public')->delete($imobilisable->image);
+            }
+
+            $data['image'] = $imagePath;
+        }
+
+
         $imobilisable->update($data);
 
+        // Log history
         $this->logHistory(Auth::user()->id, 'updated', 'imobilisable', $imobilisable);
+
         return redirect()->route('imobilisables.index')->with('success', 'imobilisable updated successfully.');
     }
 
@@ -120,10 +201,10 @@ class ImobilisableController extends Controller
      */
     public function destroy($id)
     {
-       $imobilisable = Imobilisable::findOrFail($id);
-       $imobilisable->delete();
+        $imobilisable = Imobilisable::findOrFail($id);
+        $imobilisable->delete();
 
-       $this->logHistory(Auth::user()->id, 'deleted', 'Imobilisables', $imobilisable);
+        $this->logHistory(Auth::user()->id, 'deleted', 'Imobilisables', $imobilisable);
         return redirect()->route('imobilisables.index')->with('success', 'imobilisables deleted successfully.');
     }
     protected function logHistory($userId, $action, $tableName, $data)
@@ -133,8 +214,8 @@ class ImobilisableController extends Controller
             'user_id' => $userId,
             'action' => $action,
             'table_name' => $tableName,
-            'data' => json_encode($data), 
-            'code_matricule' => $code_matricule, 
+            'data' => json_encode($data),
+            'code_matricule' => $code_matricule,
         ]);
     }
 }

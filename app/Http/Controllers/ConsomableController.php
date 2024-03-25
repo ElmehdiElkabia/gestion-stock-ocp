@@ -77,11 +77,25 @@ class ConsomableController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        $consomable = Consomable::findOrFail($id);
-        return view('consomables.index', compact('consomable'));
-    }
+    
+     public function show(Request $request, string $id)
+     {
+         $consomable = Consomable::findOrFail($id);
+         $affectations = Affictation::all();
+     
+         if ($request->has('SortieQuantité')) {
+             $request->validate([
+                 'SortieQuantité' => 'required|numeric|min:1',
+             ]);
+     
+             $consomable->quantite -= $request->input('SortieQuantité');
+             $consomable->save();
+     
+             return redirect()->route('consomables.index')->with('success', 'Quantity updated successfully.');
+         }
+     
+         return view('pages.show-consomable', compact('consomable', 'affectations'));
+     }
 
     /**
      * Show the form for editing the specified resource.
@@ -93,6 +107,41 @@ class ConsomableController extends Controller
         return view('formulaire.edite-consomable', compact('consomable', 'affectations'));
     }
 
+    public function commande(string $id, Request $request)
+    {
+        $affectations = Affictation::all();
+        $consomable = Consomable::findOrFail($id);
+
+        // Check if the form is submitted and process the new data
+        if ($request->has('newQuantity') || $request->has('newNumerobille')) {
+            // Validate the request data
+            $request->validate([
+                'newQuantity' => 'nullable|numeric', // Adjust validation rules as needed
+                'newNumerobille' => 'nullable|string', // Adjust validation rules as needed
+            ]);
+
+            // Update the consomable's quantity if provided
+            if ($request->has('newQuantity')) {
+                $consomable->quantite += $request->input('newQuantity');
+            }
+
+            // Update the consomable's "Numero Bille" if provided
+            if ($request->has('newNumerobille')) {
+                // Concatenate the existing "numero_bille" with the new value with a separator
+                $newNumerobille = $request->input('newNumerobille');
+                $separator = ','; // You can change this to any separator you prefer
+                $consomable->numero_bille = $consomable->numero_bille . $separator . $newNumerobille;
+            }
+
+
+            // Save the changes to the consomable
+            $consomable->save();
+
+            // Redirect back or to another page as needed
+            return redirect()->route('consomables.index')->with('success', 'Update Consomable successfully.');
+        }
+        return view('formulaire.edite-consomableS', compact('consomable'));
+    }
 
     /**
      * Update the specified resource in storage.
@@ -125,19 +174,19 @@ class ConsomableController extends Controller
 
             $data['pdf_file_path'] = $filePath;
         }
-         // Handle image file upload
-    if ($request->hasFile('image')) {
-        $image = $request->file('image');
-        $imageName = $image->getClientOriginalName();
-        $imagePath = $image->storeAs('images', $imageName, 'public');
+        // Handle image file upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $imagePath = $image->storeAs('images', $imageName, 'public');
 
-        // Delete the existing image if it exists
-        if ($consomable->image) {
-            Storage::disk('public')->delete($consomable->image);
+            // Delete the existing image if it exists
+            if ($consomable->image) {
+                Storage::disk('public')->delete($consomable->image);
+            }
+
+            $data['image'] = $imagePath;
         }
-
-        $data['image'] = $imagePath;
-    }
         $consomable->update($data);
 
         // Log history

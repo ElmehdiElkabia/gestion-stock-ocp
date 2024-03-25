@@ -120,7 +120,7 @@
                                                             </svg>
                                                         </span>
                                                     </a>
-                                                    {{-- <a class="btn btn-sm btn-icon btn-warning"
+                                                    <a class="btn btn-sm btn-icon btn-warning"
                                                         href="{{ route('imobilisables.exit', $imobilisable->id) }}"
                                                         data-toggle="tooltip" data-placement="top" title="Edit">
                                                         <span class="btn-inner">
@@ -142,7 +142,7 @@
                                                                 </path>
                                                             </svg>
                                                         </span>
-                                                    </a> --}}
+                                                    </a>
                                                     <form
                                                         action="{{ route('imobilisables.destroy', $imobilisable->id) }}"
                                                         method="POST">

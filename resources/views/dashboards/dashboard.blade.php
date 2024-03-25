@@ -1,5 +1,6 @@
 @section('title', ' Dashboard Analyse')
 <x-app-layout :assets="$assets ?? []">
+   
    <div class="row">
       <div class="col-md-12 col-lg-12">
          <div class="row row-cols-1">
@@ -45,7 +46,7 @@
                            </div>
                            <div class="progress-detail">
                               <p  class="mb-2">Total suivre_sucrete</p>
-                              <h4 class="counter">{{ $totalCommandeSuivre_sucrete }}</h4>
+                              <h4 class="counter">{{ $totalSuivre_sucrete }}</h4>
                            </div>
                         </div>
                      </div>
@@ -92,8 +93,8 @@
                            </svg>
                         </div>
                         <div class="progress-detail">
-                           <p  class="mb-2">Total commande consombale</p>
-                           <h4 class="counter">{{ $totalCommandeConsomable }}</h4>
+                           <p  class="mb-2">suivre ucrete consombale</p>
+                           <h4 class="counter">{{ $Suivre_sucreteConsomable }}</h4>
                         </div>
                      </div>
                   </div>
@@ -109,8 +110,8 @@
                            </svg>
                         </div>
                         <div class="progress-detail">
-                           <p  class="mb-2">Total commande Imobilisable</p>
-                           <h4 class="counter">{{ $totalCommandeImobilisable }}</h4>
+                           <p  class="mb-2">suivre ucrete Imobilisable</p>
+                           <h4 class="counter">{{ $Suivre_sucreteImobilisable }}</h4>
                         </div>
                      </div>
                   </div>
