@@ -1,3 +1,4 @@
+@section('title', ' Modifier une consommable')
 <x-app-layout :assets="$assets ?? []">
 
     <div class="row">

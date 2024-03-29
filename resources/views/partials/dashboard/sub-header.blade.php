@@ -6,8 +6,7 @@
             <div class="col-md-12">
                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                     <div>
-                        <h1>Bonjour elmehdi!</h1>
-                        <p>We are on a mission to help developers like you build successful projects for FREE.</p>
+                        <h1>Bonjour!</h1>
                     </div>
                     
                 </div>

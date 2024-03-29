@@ -1,3 +1,4 @@
+@section('title', "Information d'un imobilisable")
 <x-app-layout :assets="$assets ?? []">
 
 
@@ -57,7 +58,8 @@
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="affectation_SA">Affectation SA:</label>
                                 <select class="form-control" id="affectation_SA" name="affectation_SA" disabled>
-                                    <option value="{{ $imobilisable->affectation_SA }}">{{ $imobilisable->affectation_SA }}
+                                    <option value="{{ $imobilisable->affectation_SA }}">
+                                        {{ $imobilisable->affectation_SA }}
                                     </option>
 
                                 </select>
@@ -121,7 +123,8 @@
                         </div>
                         <hr>
                         <h5 class="mb-3">Quantité</h5>
-                        <form action="{{ route('imobilisables.show', $imobilisable->id) }}" method="post" class="row">
+                        <form action="{{ route('imobilisables.show', $imobilisable->id) }}" method="post"
+                            class="row">
                             @csrf
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="SortieQuantité">Quantité à soustraire:</label>

@@ -54,9 +54,13 @@ class ConsomableController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        if ($request->input('affectation_SA') === 'other') {
-            $data['affectation_SA'] = $request->input('other_affectation');
-        }
+       if ($request->input('affectation_SA') === 'other') {
+    // Create a new Affectation record with the provided name
+    $affectation = Affictation::create(['option' => $request->input('other_affectation')]);
+
+    // Set the affectation id in the $data array
+    $data['affectation_SA'] = $affectation->id;
+}
 
         // Handle PDF file upload
         if ($request->hasFile('pdf_file_path')) {
@@ -173,9 +177,14 @@ class ConsomableController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        if ($request->input('affectation_SA') === 'other') {
-            $data['affectation_SA'] = $request->input('other_affectation');
-        }
+       if ($request->input('affectation_SA') === 'other') {
+    // Create a new Affectation record with the provided name
+    $affectation = Affictation::create(['option' => $request->input('other_affectation')]);
+
+    // Set the affectation id in the $data array
+    $data['affectation_SA'] = $affectation->id;
+}
+
         if ($request->hasFile('pdf_file_path')) {
             $file = $request->file('pdf_file_path');
             $fileName = $file->getClientOriginalName();

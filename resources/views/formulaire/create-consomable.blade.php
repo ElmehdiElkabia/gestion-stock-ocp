@@ -21,24 +21,24 @@
                                     <div class="form-group col-md-6">
                                         <label class="form-label" for="code_article">Code article: <span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="code_article" name="code_article"
+                                        <input type="text" class="form-control" id="code_article" required name="code_article"
                                             placeholder="Entrer le code article">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="form-label" for="description">Description:</label>
-                                        <input type="text" class="form-control" id="description" name="description"
+                                        <input type="text" class="form-control" id="description" required name="description"
                                             placeholder="Enter description" required>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="form-label" for="affectation_SA">Affectation SA:</label>
-                                        <select class="form-control" id="affectation_SA" name="affectation_SA">
+                                        <select class="form-control" id="affectation_SA"  name="affectation_SA">
                                             @foreach ($affectations as $option)
                                                 <option value="{{ $option->option }}">{{ $option->option }}</option>
                                             @endforeach
                                             <option value="other">Other</option>
                                         </select>
                                         <input type="text" class="form-control" id="other_affectation"
-                                            name="other_affectation" placeholder="Enter other affectation"
+                                             name="other_affectation" placeholder="Enter other affectation"
                                             style="display: none;">
                                     </div>
 
@@ -48,66 +48,66 @@
                                         <label class="form-label" for="date_reception">Date Réception:<span
                                                 class="text-danger">*</span></label>
                                         <input type="date" class="form-control" id="date_reception"
-                                            name="date_reception" placeholder="Select date reception" required>
+                                            required name="date_reception" placeholder="Select date reception" required>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="form-label" for="date_fin_garantie">Date Garantie:</label>
                                         <input type="date" class="form-control" id="date_fin_garantie"
-                                            name="date_fin_garantie" placeholder="Select date fin garantie">
+                                            required name="date_fin_garantie" placeholder="Select date fin garantie">
                                     </div>
 
                                     <div class="form-group col-md-6">
                                         <label class="form-label" for="numero_commande">Numéro Commande: <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="numero_commande"
-                                            name="numero_commande" placeholder="Enter Numéro Commande">
+                                            required name="numero_commande" placeholder="Enter Numéro Commande">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="form-label" for="fournisseur">Fournisseur:</label>
-                                        <input type="text" class="form-control" id="fournisseur" name="fournisseur"
+                                        <input type="text" class="form-control" id="fournisseur" required name="fournisseur"
                                             placeholder="Enter Fournisseur">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="form-label" for="numero_bille">Numéro Bille: <span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="numero_bille" name="numero_bille"
+                                        <input type="text" class="form-control" id="numero_bille" required name="numero_bille"
                                             placeholder="Enter Numéro Bille">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="form-label" for="quantite">Quantité: <span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="quantite" name="quantite"
+                                        <input type="text" class="form-control" id="quantite" required name="quantite"
                                             placeholder="Enter Quantité">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="form-label" for="suivre_securite">Suivre sécurité:</label>
                                         <input type="text" class="form-control" id="suivre_sucrete"
-                                            name="suivre_sucrete" placeholder="Enter Suivre sécurité">
+                                            required name="suivre_sucrete" placeholder="Enter Suivre sécurité">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="form-label" for="DMS_PVRD">DMS PVRD:</label>
-                                        <input type="text" class="form-control" id="DMS_PVES" name="DMS_PVES"
+                                        <input type="text" class="form-control" id="DMS_PVES" required name="DMS_PVES"
                                             placeholder="Enter DMS PVRD">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="form-label" for="cout">Coût:</label>
-                                        <input type="text" class="form-control" id="cout" name="cout"
+                                        <input type="text" class="form-control" id="cout" required name="cout"
                                             placeholder="Enter Coût">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="form-label" for="emplacement">Emplacement: <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="emplacement"
-                                            name="emplacement" placeholder="Enter Emplacement">
+                                            required name="emplacement" placeholder="Enter Emplacement">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="form-label" for="image">Image:</label>
-                                        <input type="file" class="form-control" id="image" name="image"
+                                        <input type="file" class="form-control" id="image"  name="image"
                                             placeholder="Enter Image">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="form-label" for="pdf_file_path">Fichier PDF:</label>
-                                        <input type="file" class="form-control" id="pdf_file_path" name="pdf_file_path" placeholder="Sélectionner un fichier PDF">
+                                        <input type="file" class="form-control" id="pdf_file_path"  name="pdf_file_path" placeholder="Sélectionner un fichier PDF">
                                     </div>
                                     
                                 </div>

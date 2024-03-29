@@ -1,3 +1,4 @@
+@section('title', ' Tableau tout Securite Consomable')
 <x-app-layout :assets="$assets ?? []">
     <div>
         <div class="row">

@@ -1,3 +1,4 @@
+@section('title', "Information d'une consommable")
 <x-app-layout :assets="$assets ?? []">
 
 
